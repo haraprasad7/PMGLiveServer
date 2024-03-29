@@ -1,0 +1,22 @@
+{
+  "name": "pmgserver",
+  "version": "1.0.0",
+  "description": "server for fantasy game live prediction and quizes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fantasy",
+    "cricket",
+    "sports",
+    "live",
+    "quiz",
+    "stnadings"
+  ],
+  "author": "haraprasadchatterjee7@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^4.7.5"
+  }
+}
