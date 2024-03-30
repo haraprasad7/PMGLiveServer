@@ -1,18 +1,22 @@
 const { Server } = require('socket.io');
 const { logItOnFile, logItOnConsole } = require('./utility/logUtility');
-
 const { deletePoll, addUserChoice,
     addPrediction,uniqueUser, validateRoomID, getGameState, createSessionPool,
     addUser, addHost, createSession, calculateStandings
 } = require('./utility/sessionManager');
-
-
-const io = new Server({
+const path = require('path');
+const fs = require('fs');
+const httpServer = require("https").createServer({
+  key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
+  cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem')),
+});
+const io = new Server(httpServer, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"]
   }
 });
+
   
   const USERNAME_DUPLICATE = "Username taken by your friend :(. Try a new one!";
   const GAME_JOIN_FAILED = "Game join failed - Wrong room id";
@@ -173,7 +177,7 @@ const io = new Server({
     logItOnConsole("[INFO] Creating ession pool....");
     createSessionPool();  
     logItOnConsole("[INFO] Starting game server .....");
-    io.listen(3000);
+    httpServer.listen(3000);
   }
   
   catch(e) {
