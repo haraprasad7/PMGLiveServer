@@ -9,8 +9,8 @@ const { deletePoll, addUserChoice,
 } = require('./utility/sessionManager');
 
 const options = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
+  key: fs.readFileSync('./key.pem'),
+  cert: fs.readFileSync('./cert.pem')
 };
 
 const io = new Server(https.createServer(options), {
