@@ -13,7 +13,7 @@ const options = {
   cert: fs.readFileSync('cert.pem')
 };
 
-const io = new Server(https.createServer(serverOptions), {
+const io = new Server(https.createServer(options), {
   cors: {
     origin: "*",
     methods: ["GET", "POST"]
