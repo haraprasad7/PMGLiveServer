@@ -1,22 +1,17 @@
 const { Server } = require('socket.io');
 const { logItOnFile, logItOnConsole } = require('./utility/logUtility');
-const fs = require('fs');
 
 const { deletePoll, addUserChoice,
     addPrediction,uniqueUser, validateRoomID, getGameState, createSessionPool,
     addUser, addHost, createSession, calculateStandings
 } = require('./utility/sessionManager');
 
-const options = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
-};
 
 const io = new Server({
   cors: {
     origin: "*",
     methods: ["GET", "POST"]
-  },options
+  }
 });
   
   const USERNAME_DUPLICATE = "Username taken by your friend :(. Try a new one!";
