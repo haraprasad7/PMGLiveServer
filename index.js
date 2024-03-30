@@ -1,6 +1,7 @@
 const { Server } = require('socket.io');
 const { logItOnFile, logItOnConsole } = require('./utility/logUtility');
 const fs = require('fs');
+const https = require('https');
 
 const { deletePoll, addUserChoice,
     addPrediction,uniqueUser, validateRoomID, getGameState, createSessionPool,
@@ -12,10 +13,12 @@ const options = {
   cert: fs.readFileSync('cert.pem')
 };
 
-const io = new Server({ cors: {
+const io = new Server(https.createServer(serverOptions), {
+  cors: {
     origin: "*",
     methods: ["GET", "POST"]
-  }, options});
+  }
+});
   
   const USERNAME_DUPLICATE = "Username taken by your friend :(. Try a new one!";
   const GAME_JOIN_FAILED = "Game join failed - Wrong room id";
