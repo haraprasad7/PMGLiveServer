@@ -6,11 +6,11 @@ const { deletePoll, addUserChoice,
 } = require('./utility/sessionManager');
 const path = require('path');
 const fs = require('fs');
-const httpServer = require("https").createServer({
-  key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
-  cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem')),
-});
-const io = new Server(httpServer, {
+// const httpServer = require("https").createServer({
+//   key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
+//   cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem')),
+// });
+const io = new Server({
   cors: {
     origin: "*",
     methods: ["GET", "POST"]
@@ -20,7 +20,7 @@ const io = new Server(httpServer, {
   
   const USERNAME_DUPLICATE = "Username taken by your friend :(. Try a new one!";
   const GAME_JOIN_FAILED = "Game join failed - Wrong room id";
-  
+
   io.on("connection", (socket) => {
     logItOnFile("[INFO] A new connection [SKID] " + socket.id);
     let user;
@@ -177,7 +177,7 @@ const io = new Server(httpServer, {
     logItOnConsole("[INFO] Creating ession pool....");
     createSessionPool();  
     logItOnConsole("[INFO] Starting game server .....");
-    httpServer.listen(3000);
+    io.listen(3000);
   }
   
   catch(e) {
