@@ -16,7 +16,7 @@ const io = new Server({
     origin: "*",
     methods: ["GET", "POST"]
   }
-},httpServer);
+});
 
   
   const USERNAME_DUPLICATE = "Username taken by your friend :(. Try a new one!";
@@ -178,7 +178,7 @@ const io = new Server({
     logItOnConsole("[INFO] Creating ession pool....");
     createSessionPool();  
     logItOnConsole("[INFO] Starting game server .....");
-    httpServer.listen(3000);
+    io.listen(3000);
   }
   
   catch(e) {
