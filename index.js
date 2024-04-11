@@ -6,16 +6,17 @@ const { deletePoll, addUserChoice,
 } = require('./utility/sessionManager');
 const path = require('path');
 const fs = require('fs');
-// const httpServer = require("https").createServer({
-//   key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
-//   cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem')),
-// });
+const httpServer = require("https").createServer({
+  key: fs.readFileSync(path.join(__dirname, 'cert', 'private.key')),
+  cert: fs.readFileSync(path.join(__dirname, 'cert', 'certificate.crt')),
+  ca:fs.readFileSync(path.join(__dirname, 'cert', 'ca_bundle.crt'))
+});
 const io = new Server({
   cors: {
     origin: "*",
     methods: ["GET", "POST"]
   }
-});
+},httpServer);
 
   
   const USERNAME_DUPLICATE = "Username taken by your friend :(. Try a new one!";
@@ -177,7 +178,7 @@ const io = new Server({
     logItOnConsole("[INFO] Creating ession pool....");
     createSessionPool();  
     logItOnConsole("[INFO] Starting game server .....");
-    io.listen(3000);
+    httpServer.listen(3000);
   }
   
   catch(e) {
