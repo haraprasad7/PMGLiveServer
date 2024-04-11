@@ -11,7 +11,7 @@ const httpServer = require("https").createServer({
   cert: fs.readFileSync(path.join(__dirname, 'cert', 'certificate.crt')),
   ca:fs.readFileSync(path.join(__dirname, 'cert', 'ca_bundle.crt'))
 });
-const io = new Server({
+const io = new Server(httpServer, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"]
@@ -178,7 +178,7 @@ const io = new Server({
     logItOnConsole("[INFO] Creating ession pool....");
     createSessionPool();  
     logItOnConsole("[INFO] Starting game server .....");
-    io.listen(3000);
+    httpServer.listen(3000);
   }
   
   catch(e) {
